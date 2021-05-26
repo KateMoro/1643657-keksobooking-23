@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Екатерина Морозова](https://up.htmlacademy.ru/javascript/23/user/1643657).
-* Наставник: `Неизвестно`.
+* Наставник: [Антон Попов](https://htmlacademy.ru/profile/joker).
 
 ---
 
