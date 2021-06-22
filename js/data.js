@@ -57,29 +57,29 @@ const PHOTOS = [
 
 const SIMILAR_AD_COUNT = 10;
 
-const LATITUDE = {
+const Latitude = {
   MIN: 35.65000,
   MAX: 35.70000,
 };
 
-const LONGITUDE = {
+const Longitude = {
   MIN: 139.70000,
   MAX: 139.80000,
 };
 
 const POINTS = 5;
 
-const PRICE = {
+const Price = {
   MIN: 100,
   MAX: 1000,
 };
 
-const ROOMS = {
+const Rooms = {
   MIN: 1,
   MAX: 5,
 };
 
-const GUESTS = {
+const Guests = {
   MIN: 1,
   MAX: 10,
 };
@@ -131,11 +131,11 @@ const createAuthor = () => ({
  */
 const createOffer = () => ({
   title: getRandomArrayElement(TITLE),
-  address: `${getRandomNumber(LATITUDE.MIN, LATITUDE.MAX, POINTS)}, ${getRandomNumber(LONGITUDE.MIN, LONGITUDE.MAX, POINTS)}`,
-  price: getRandomNumber(PRICE.MIN, PRICE.MAX),
+  address: `${getRandomNumber(Latitude.MIN, Latitude.MAX, POINTS)}, ${getRandomNumber(Longitude.MIN, Longitude.MAX, POINTS)}`,
+  price: getRandomNumber(Price.MIN, Price.MAX),
   type: getRandomArrayElement(TYPE),
-  rooms: getRandomNumber(ROOMS.MIN, ROOMS.MAX),
-  guests: getRandomNumber(GUESTS.MIN, GUESTS.MAX),
+  rooms: getRandomNumber(Rooms.MIN, Rooms.MAX),
+  guests: getRandomNumber(Guests.MIN, Guests.MAX),
   checkin: getRandomArrayElement(TIME),
   checkout: getRandomArrayElement(TIME),
   features: getRandomArray(FEATURES),
@@ -148,8 +148,8 @@ const createOffer = () => ({
  * @returns {object} местоположение в виде географических координат, cостоит из двух полей: широта и долгота
  */
 const createLocation = () => ({
-  lat: getRandomNumber(LATITUDE.MIN, LATITUDE.MAX, POINTS),
-  lng: getRandomNumber(LONGITUDE.MIN, LONGITUDE.MAX, POINTS),
+  lat: getRandomNumber(Latitude.MIN, Latitude.MAX, POINTS),
+  lng: getRandomNumber(Longitude.MIN, Longitude.MAX, POINTS),
 });
 
 /**
