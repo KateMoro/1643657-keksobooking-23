@@ -56,17 +56,33 @@ const PHOTOS = [
 ];
 
 const SIMILAR_AD_COUNT = 10;
-const LAT_MIN = 35.65000;
-const LAT_MAX = 35.70000;
-const LNG_MIN = 139.70000;
-const LNG_MAX = 139.80000;
+
+const LATITUDE = {
+  MIN: 35.65000,
+  MAX: 35.70000,
+};
+
+const LONGITUDE = {
+  MIN: 139.70000,
+  MAX: 139.80000,
+};
+
 const POINTS = 5;
-const PRICE_MIN = 100;
-const PRICE_MAX = 1000;
-const ROOMS_MIN = 1;
-const ROOMS_MAX = 5;
-const GUESTS_MIN = 1;
-const GUESTS_MAX = 10;
+
+const PRICE = {
+  MIN: 100,
+  MAX: 1000,
+};
+
+const ROOMS = {
+  MIN: 1,
+  MAX: 5,
+};
+
+const GUESTS = {
+  MIN: 1,
+  MAX: 10,
+};
 
 /**
  * Функция, возвращающая случайный элемент из переданного массива
@@ -98,10 +114,7 @@ const getRandomArray = (arr) => {
  */
 const createNumber = () => {
   const rand = getRandomNumber(1, 10);
-  if (rand < 10) {
-    return`img/avatars/user0${rand}.png`;
-  }
-  return`img/avatars/user${rand}.png`;
+  return (rand < 10) ? `img/avatars/user0${rand}.png` : `img/avatars/user${rand}.png`;
 };
 
 /**
@@ -118,11 +131,11 @@ const createAuthor = () => ({
  */
 const createOffer = () => ({
   title: getRandomArrayElement(TITLE),
-  address: `${getRandomNumber(LAT_MIN, LAT_MAX, POINTS)}, ${getRandomNumber(LNG_MIN, LNG_MAX, POINTS)}`,
-  price: getRandomNumber(PRICE_MIN, PRICE_MAX),
+  address: `${getRandomNumber(LATITUDE.MIN, LATITUDE.MAX, POINTS)}, ${getRandomNumber(LONGITUDE.MIN, LONGITUDE.MAX, POINTS)}`,
+  price: getRandomNumber(PRICE.MIN, PRICE.MAX),
   type: getRandomArrayElement(TYPE),
-  rooms: getRandomNumber(ROOMS_MIN, ROOMS_MAX),
-  guests: getRandomNumber(GUESTS_MIN, GUESTS_MAX),
+  rooms: getRandomNumber(ROOMS.MIN, ROOMS.MAX),
+  guests: getRandomNumber(GUESTS.MIN, GUESTS.MAX),
   checkin: getRandomArrayElement(TIME),
   checkout: getRandomArrayElement(TIME),
   features: getRandomArray(FEATURES),
@@ -135,8 +148,8 @@ const createOffer = () => ({
  * @returns {object} местоположение в виде географических координат, cостоит из двух полей: широта и долгота
  */
 const createLocation = () => ({
-  lat: getRandomNumber(LAT_MIN, LAT_MAX, POINTS),
-  lng: getRandomNumber(LNG_MIN, LNG_MAX, POINTS),
+  lat: getRandomNumber(LATITUDE.MIN, LATITUDE.MAX, POINTS),
+  lng: getRandomNumber(LONGITUDE.MIN, LONGITUDE.MAX, POINTS),
 });
 
 /**
@@ -149,4 +162,7 @@ const createAd = () => ({
   location: createLocation(),
 });
 
-export {SIMILAR_AD_COUNT, createAd};
+const similarAds = new Array(SIMILAR_AD_COUNT).fill(null).map(() => createAd());
+similarAds;
+
+export {SIMILAR_AD_COUNT, createAd, similarAds};
