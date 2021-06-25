@@ -55,8 +55,6 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
-const SIMILAR_AD_COUNT = 10;
-
 const Latitude = {
   MIN: 35.65000,
   MAX: 35.70000,
@@ -162,7 +160,11 @@ const createAd = () => ({
   location: createLocation(),
 });
 
-const similarAds = new Array(SIMILAR_AD_COUNT).fill(null).map(() => createAd());
-similarAds;
+/**
+ * Функция для создания массива из сгенерированных объектов
+ * @param {number} count
+ * @returns {Array}
+ */
+const similarAds = (count) => Array(count).fill(null).map(() => createAd());
 
-export {SIMILAR_AD_COUNT, createAd, similarAds};
+export {similarAds};
