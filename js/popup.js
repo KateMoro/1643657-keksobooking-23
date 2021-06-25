@@ -1,21 +1,19 @@
-import {similarAds} from './data.js';
-
 const mapCanvas = document.querySelector('#map-canvas');
 const similarAdTemplate = document.querySelector('#card').content.querySelector('.popup');
 const imgItem = similarAdTemplate.querySelector('.popup__photo');
 
-const TYPE_OF_HOUSING = {
-  flat: 'Квартира',
-  bungalow: 'Бунгало',
-  house: 'Дом',
-  palace: 'Дворец',
-  hotel: 'Отель',
+const TypeOfHousing = {
+  FLAT: 'Квартира',
+  BUNGALOW: 'Бунгало',
+  HOUSE: 'Дом',
+  PALACE: 'Дворец',
+  HOTEL: 'Отель',
 };
 
 /**
  * Удаляет элементы из списка характеристик
- * @param {Array} arr
- * @returns {Array}
+ * @param {array} arr
+ * @returns {array}
  */
 const getFeatures = (arr) => {
   const featuresList = similarAdTemplate.querySelector('.popup__features');
@@ -35,14 +33,14 @@ const getFeatures = (arr) => {
  * @returns {string}
  */
 const roomsText = (room) => {
-  let text = 'комната';
-  if (room > 1) {
-    text = 'комнаты';
+  if (room === 1 || (room % 10 === 1 && room !== 11)) {
+    return 'комната';
   }
-  if (room > 4) {
-    text = 'комнат';
+  if ( (room > 1 && room < 5) || (room % 10 === 2 && room !== 12) || (room % 10 === 3 && room !== 13) || (room % 10 === 4 && room !== 14) ) {
+    return 'комнаты';
+  } else {
+    return 'комнат';
   }
-  return text;
 };
 
 /**
@@ -51,18 +49,16 @@ const roomsText = (room) => {
  * @returns {string}
  */
 const guestsText = (guest) => {
-  let text = 'гостя';
-  if (guest > 1) {
-    text = 'гостей';
+  if (guest === 1 || (guest % 10 === 1 && guest !== 11)) {
+    return 'гостя';
   }
-  return text;
+  return 'гостей';
 };
-
 
 /**
  * Перебирает массив с адресами изображений и добавляет в атрибут src
- * @param {Array} arr
- * @returns
+ * @param {array} arr
+ * @returns DocumentFragment
  */
 const createPhotosList = (arr) => {
   const fragment = document.createDocumentFragment();
@@ -74,73 +70,65 @@ const createPhotosList = (arr) => {
   return fragment;
 };
 
-const similarAdsFragment = document.createDocumentFragment();
-
-similarAds.forEach((ad) => {
-  const adItem = similarAdTemplate.cloneNode(true);
-
-  if (ad.author.avatar) {
-    adItem.querySelector('.popup__avatar').src = ad.author.avatar;
-  } else {
-    adItem.querySelector('.popup__avatar').remove();
+/**
+ * Удаляет пустые элементы
+ * @param {*} elem1
+ * @param {*} elem2
+ */
+const checkData = (elem1, elem2) => {
+  if (!elem1 || elem1.length === 0) {
+    elem2.remove();
   }
+};
 
-  if (ad.offer.title) {
-    adItem.querySelector('.popup__title').textContent = ad.offer.title;
-  } else {
-    adItem.querySelector('.popup__title').remove();
-  }
 
-  if (ad.offer.address) {
-    adItem.querySelector('.popup__text--address').textContent = ad.offer.address;
-  } else {
-    adItem.querySelector('.popup__text--address').remove();
-  }
+/**
+ * Отрисовывает карточку объявления, заполненную по шаблону из сгенерированного объекта
+ * @param {object} obj
+ */
+const renderCard = (obj) => {
+  const fragment = document.createDocumentFragment();
+  const cardItem = similarAdTemplate.cloneNode(true);
 
-  if (ad.offer.price) {
-    adItem.querySelector('.popup__text--price').textContent = `${ad.offer.price} ₽/ночь`;
-  } else {
-    adItem.querySelector('.popup__text--price').remove();
-  }
+  const avatar = cardItem.querySelector('.popup__avatar');
+  const title = cardItem.querySelector('.popup__title');
+  const address = cardItem.querySelector('.popup__text--address');
+  const price = cardItem.querySelector('.popup__text--price');
+  const type = cardItem.querySelector('.popup__type');
+  const capacity = cardItem.querySelector('.popup__text--capacity');
+  const time = cardItem.querySelector('.popup__text--time');
+  const features = cardItem.querySelector('.popup__features');
+  const description = cardItem.querySelector('.popup__description');
+  const photos = cardItem.querySelector('.popup__photos');
 
-  if (ad.offer.type) {
-    adItem.querySelector('.popup__type').textContent = TYPE_OF_HOUSING[ad.offer.type];
-  } else {
-    adItem.querySelector('.popup__type').remove();
-  }
+  title.textContent = obj.offer.title;
+  address.textContent = obj.offer.address;
+  price.textContent = `${obj.offer.price} ₽/ночь`;
+  type.textContent = TypeOfHousing[obj.offer.type];
+  capacity.textContent = `${obj.offer.rooms} ${roomsText(obj.offer.rooms)} для ${obj.offer.guests} ${guestsText(obj.offer.guests)}`;
+  time.textContent = `Заезд после ${obj.offer.checkin}, выезд до ${obj.offer.checkout}`;
+  description.textContent = obj.offer.description;
+  avatar.src = obj.author.avatar;
+  photos.innerHTML = '';
+  photos.appendChild(createPhotosList(obj.offer.photos));
+  features.innerHTML = '';
+  features.appendChild(getFeatures(obj.offer.features));
 
-  if (ad.offer.rooms || ad.offer.guests) {
-    adItem.querySelector('.popup__text--capacity').textContent = `${ad.offer.rooms} ${roomsText(ad.offer.rooms)} для ${ad.offer.guests} ${guestsText(ad.offer.guests)}`;
-  } else {
-    adItem.querySelector('.popup__text--capacity').remove();
-  }
+  checkData(obj.author.avatar, avatar);
+  checkData(obj.offer.title, title);
+  checkData(obj.offer.address, address);
+  checkData(obj.offer.price, price);
+  checkData(obj.offer.type, type);
+  checkData(obj.offer.rooms, capacity);
+  checkData(obj.offer.guests, capacity);
+  checkData(obj.offer.checkin, time);
+  checkData(obj.offer.checkout, time);
+  checkData(obj.offer.features, features);
+  checkData(obj.offer.description, description);
+  checkData(obj.offer.photos, photos);
 
-  if (ad.offer.checkin && ad.offer.checkout) {
-    adItem.querySelector('.popup__text--time').textContent = `Заезд после ${ad.offer.checkin}, выезд до ${ad.offer.checkout}`;
-  } else {
-    adItem.querySelector('.popup__text--time').remove();
-  }
+  fragment.appendChild(cardItem);
+  mapCanvas.appendChild(fragment);
+};
 
-  if (ad.offer.features) {
-    getFeatures(ad.offer.features);
-  } else {
-    adItem.querySelector('.popup__features').remove();
-  }
-
-  if (ad.offer.description) {
-    adItem.querySelector('.popup__description').textContent = ad.offer.description;
-  } else {
-    adItem.querySelector('.popup__description').remove();
-  }
-
-  if (ad.offer.photos) {
-    adItem.querySelector('.popup__photos').innerHTML = '';
-    adItem.querySelector('.popup__photos').appendChild(createPhotosList(ad.offer.photos));
-  } else {
-    adItem.querySelector('.popup__photos').remove();
-  }
-
-  similarAdsFragment.appendChild(adItem);
-});
-
-mapCanvas.appendChild(similarAdsFragment);
+export {renderCard};
