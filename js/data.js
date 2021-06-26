@@ -55,18 +55,32 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
-const SIMILAR_AD_COUNT = 10;
-const LAT_MIN = 35.65000;
-const LAT_MAX = 35.70000;
-const LNG_MIN = 139.70000;
-const LNG_MAX = 139.80000;
+const Latitude = {
+  MIN: 35.65000,
+  MAX: 35.70000,
+};
+
+const Longitude = {
+  MIN: 139.70000,
+  MAX: 139.80000,
+};
+
 const POINTS = 5;
-const PRICE_MIN = 100;
-const PRICE_MAX = 1000;
-const ROOMS_MIN = 1;
-const ROOMS_MAX = 5;
-const GUESTS_MIN = 1;
-const GUESTS_MAX = 10;
+
+const Price = {
+  MIN: 100,
+  MAX: 1000,
+};
+
+const Rooms = {
+  MIN: 1,
+  MAX: 5,
+};
+
+const Guests = {
+  MIN: 1,
+  MAX: 10,
+};
 
 /**
  * Функция, возвращающая случайный элемент из переданного массива
@@ -98,10 +112,7 @@ const getRandomArray = (arr) => {
  */
 const createNumber = () => {
   const rand = getRandomNumber(1, 10);
-  if (rand < 10) {
-    return`img/avatars/user0${rand}.png`;
-  }
-  return`img/avatars/user${rand}.png`;
+  return (rand < 10) ? `img/avatars/user0${rand}.png` : `img/avatars/user${rand}.png`;
 };
 
 /**
@@ -118,11 +129,11 @@ const createAuthor = () => ({
  */
 const createOffer = () => ({
   title: getRandomArrayElement(TITLE),
-  address: `${getRandomNumber(LAT_MIN, LAT_MAX, POINTS)}, ${getRandomNumber(LNG_MIN, LNG_MAX, POINTS)}`,
-  price: getRandomNumber(PRICE_MIN, PRICE_MAX),
+  address: `${getRandomNumber(Latitude.MIN, Latitude.MAX, POINTS)}, ${getRandomNumber(Longitude.MIN, Longitude.MAX, POINTS)}`,
+  price: getRandomNumber(Price.MIN, Price.MAX),
   type: getRandomArrayElement(TYPE),
-  rooms: getRandomNumber(ROOMS_MIN, ROOMS_MAX),
-  guests: getRandomNumber(GUESTS_MIN, GUESTS_MAX),
+  rooms: getRandomNumber(Rooms.MIN, Rooms.MAX),
+  guests: getRandomNumber(Guests.MIN, Guests.MAX),
   checkin: getRandomArrayElement(TIME),
   checkout: getRandomArrayElement(TIME),
   features: getRandomArray(FEATURES),
@@ -135,8 +146,8 @@ const createOffer = () => ({
  * @returns {object} местоположение в виде географических координат, cостоит из двух полей: широта и долгота
  */
 const createLocation = () => ({
-  lat: getRandomNumber(LAT_MIN, LAT_MAX, POINTS),
-  lng: getRandomNumber(LNG_MIN, LNG_MAX, POINTS),
+  lat: getRandomNumber(Latitude.MIN, Latitude.MAX, POINTS),
+  lng: getRandomNumber(Longitude.MIN, Longitude.MAX, POINTS),
 });
 
 /**
@@ -149,4 +160,11 @@ const createAd = () => ({
   location: createLocation(),
 });
 
-export {SIMILAR_AD_COUNT, createAd};
+/**
+ * Функция для создания массива из сгенерированных объектов
+ * @param {number} count
+ * @returns {Array}
+ */
+const similarAds = (count) => Array(count).fill(null).map(() => createAd());
+
+export {similarAds};
