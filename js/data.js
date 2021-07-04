@@ -165,6 +165,6 @@ const createAd = () => ({
  * @param {number} count
  * @returns {Array}
  */
-const similarAds = (count) => Array(count).fill(null).map(() => createAd());
+const createSimilarAds = (count) => Array(count).fill(null).map(() => createAd());
 
-export {similarAds};
+export {createSimilarAds};

@@ -1,7 +1,7 @@
-import {similarAds} from './data.js';
+import {createSimilarAds} from './data.js';
 import {renderCard} from './popup.js';
 
 const SIMILAR_AD_COUNT = 10;
 
-const ads = similarAds(SIMILAR_AD_COUNT);
+const ads = createSimilarAds(SIMILAR_AD_COUNT);
 renderCard(ads[0]);
