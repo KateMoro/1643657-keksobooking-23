@@ -81,13 +81,11 @@ const checkData = (elem1, elem2) => {
   }
 };
 
-
 /**
  * Отрисовывает карточку объявления, заполненную по шаблону из сгенерированного объекта
  * @param {object} obj
  */
 const renderCard = (obj) => {
-  const fragment = document.createDocumentFragment();
   const cardItem = similarAdTemplate.cloneNode(true);
 
   const avatar = cardItem.querySelector('.popup__avatar');
@@ -127,8 +125,7 @@ const renderCard = (obj) => {
   checkData(obj.offer.description, description);
   checkData(obj.offer.photos, photos);
 
-  fragment.appendChild(cardItem);
-  mapCanvas.appendChild(fragment);
+  mapCanvas.appendChild(cardItem);
 };
 
 export {renderCard};
