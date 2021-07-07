@@ -4,6 +4,7 @@ const mapFiltersForm = document.querySelector('.map__filters');
 const mapFiltersSelects = mapFiltersForm.querySelectorAll('select');
 
 const titleInput = adForm.querySelector('#title');
+const addressInput = adForm.querySelector('#address');
 const priceInput = adForm.querySelector('#price');
 const typeSelect = adForm.querySelector('#type');
 const roomNumberSelect = adForm.querySelector('#room_number');
@@ -52,6 +53,8 @@ const getInactiveForm = () => {
   mapFiltersSelects.forEach((item) => item.disabled = true);
 };
 
+addressInput.readOnly = true;
+
 titleInput.addEventListener('input', () => {
   const valueLength = titleInput.value.length;
   if (valueLength < TitleLength.MIN) {
@@ -85,14 +88,7 @@ priceInput.addEventListener('input', () => {
 
 roomNumberSelect.addEventListener('change', () => {
   const roomsValue = roomNumberSelect.value;
-
-  capacityOptions.forEach( (item) => {
-    if (!roomsToCapacity[roomsValue].includes(item.value)) {
-      item.disabled = true;
-    } else {
-      item.disabled = false;
-    }
-  });
+  capacityOptions.forEach( (item) => item.disabled = !roomsToCapacity[roomsValue].includes(item.value));
 });
 
-export {getActiveForm, getInactiveForm};
+export {getActiveForm, getInactiveForm, addressInput};

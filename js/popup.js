@@ -1,4 +1,4 @@
-const mapCanvas = document.querySelector('#map-canvas');
+//const mapCanvas = document.querySelector('#map-canvas');
 const similarAdTemplate = document.querySelector('#card').content.querySelector('.popup');
 const imgItem = similarAdTemplate.querySelector('.popup__photo');
 
@@ -125,7 +125,7 @@ const renderCard = (obj) => {
   checkData(obj.offer.description, description);
   checkData(obj.offer.photos, photos);
 
-  mapCanvas.appendChild(cardItem);
+  return cardItem;
 };
 
 export {renderCard};
