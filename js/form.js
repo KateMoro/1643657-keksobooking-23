@@ -88,7 +88,7 @@ priceInput.addEventListener('input', () => {
 
 roomNumberSelect.addEventListener('change', () => {
   const roomsValue = roomNumberSelect.value;
-  capacityOptions.forEach( (item) => item.disabled = !roomsToCapacity[roomsValue].includes(item.value));
+  capacityOptions.forEach((option) => option.disabled = !roomsToCapacity[roomsValue].includes(option.value));
 });
 
 export {getActiveForm, getInactiveForm, addressInput};
