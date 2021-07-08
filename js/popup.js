@@ -1,4 +1,3 @@
-//const mapCanvas = document.querySelector('#map-canvas');
 const similarAdTemplate = document.querySelector('#card').content.querySelector('.popup');
 const imgItem = similarAdTemplate.querySelector('.popup__photo');
 
@@ -11,21 +10,11 @@ const TypeOfHousing = {
 };
 
 /**
- * Удаляет элементы из списка характеристик
+ * Заменяет элементы в списке характерстик
  * @param {array} arr
- * @returns {array}
+ * @returns {string}
  */
-const getFeatures = (arr) => {
-  const featuresList = similarAdTemplate.querySelector('.popup__features');
-  const modifiers = arr.map( (feature) => `popup__feature--${feature}`);
-  featuresList.querySelectorAll('.popup__feature').forEach((item) => {
-    const modifier = item.classList[1];
-    if (!modifiers.includes(modifier)) {
-      item.remove();
-    }
-  });
-  return featuresList;
-};
+const getFeatures = (arr) => arr.map( (feature) => `<li class="popup__feature popup__feature--${feature}"></li>`).join('');
 
 /**
  * Определение верной словоформы
@@ -36,7 +25,7 @@ const roomsText = (room) => {
   if (room === 1 || (room % 10 === 1 && room !== 11)) {
     return 'комната';
   }
-  if ( (room > 1 && room < 5) || (room % 10 === 2 && room !== 12) || (room % 10 === 3 && room !== 13) || (room % 10 === 4 && room !== 14) ) {
+  if ((room > 1 && room < 5) || (room % 10 === 2 && room !== 12) || (room % 10 === 3 && room !== 13) || (room % 10 === 4 && room !== 14)) {
     return 'комнаты';
   } else {
     return 'комнат';
@@ -109,8 +98,7 @@ const renderCard = (obj) => {
   avatar.src = obj.author.avatar;
   photos.innerHTML = '';
   photos.appendChild(createPhotosList(obj.offer.photos));
-  features.innerHTML = '';
-  features.appendChild(getFeatures(obj.offer.features));
+  features.innerHTML = getFeatures(obj.offer.features);
 
   checkData(obj.author.avatar, avatar);
   checkData(obj.offer.title, title);
@@ -128,4 +116,4 @@ const renderCard = (obj) => {
   return cardItem;
 };
 
-export {renderCard};
+export { renderCard };
