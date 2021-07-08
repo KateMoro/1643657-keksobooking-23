@@ -10,6 +10,8 @@ const typeSelect = adForm.querySelector('#type');
 const roomNumberSelect = adForm.querySelector('#room_number');
 const capacitySelect = adForm.querySelector('#capacity');
 const capacityOptions = capacitySelect.querySelectorAll('option');
+const timeinSelect = adForm.querySelector('#timein');
+const timeoutSelect = adForm.querySelector('#timeout');
 
 const TitleLength = {
   MIN: 30,
@@ -89,6 +91,14 @@ priceInput.addEventListener('input', () => {
 roomNumberSelect.addEventListener('change', () => {
   const roomsValue = roomNumberSelect.value;
   capacityOptions.forEach((option) => option.disabled = !roomsToCapacity[roomsValue].includes(option.value));
+});
+
+timeinSelect.addEventListener('change', () => {
+  timeoutSelect.value = timeinSelect.value;
+});
+
+timeoutSelect.addEventListener('change', () => {
+  timeinSelect.value = timeoutSelect.value;
 });
 
 export {getActiveForm, getInactiveForm, addressInput};
