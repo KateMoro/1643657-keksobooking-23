@@ -47,7 +47,7 @@ mainMarker.addTo(map);
 const setAddressCoordinates = () => {
   addressInput.value = `${DefaultСoordinates.LAT}, ${DefaultСoordinates.LNG}`;
 
-  mainMarker.on('moveend', (evt) => {
+  mainMarker.on('move', (evt) => {
     const location = evt.target.getLatLng();
     addressInput.value = `${location.lat.toFixed(5)}, ${location.lng.toFixed(5)}`;
   });
