@@ -89,4 +89,22 @@ const createMarkers = (arr) => {
   });
 };
 
-export {createMarkers};
+/**
+* Восстанавливает стандартные значения для карты, устанавливает главную метку в центр
+*/
+const resetMap = () => {
+  map.setView(
+    {
+      lat: DefaultСoordinates.LAT,
+      lng: DefaultСoordinates.LNG,
+    }, 13);
+  mainMarker.setLatLng(
+    {
+      lat: DefaultСoordinates.LAT,
+      lng: DefaultСoordinates.LNG,
+    },
+  );
+  setAddressCoordinates();
+};
+
+export {resetMap, createMarkers, setAddressCoordinates};

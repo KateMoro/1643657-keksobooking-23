@@ -55,6 +55,8 @@ const getInactiveForm = () => {
   mapFiltersSelects.forEach((item) => item.disabled = true);
 };
 
+getInactiveForm();
+
 addressInput.readOnly = true;
 
 titleInput.addEventListener('input', () => {
@@ -101,4 +103,33 @@ timeoutSelect.addEventListener('change', () => {
   timeinSelect.value = timeoutSelect.value;
 });
 
-export {getActiveForm, getInactiveForm, addressInput};
+/**
+ * Отправляет данные из формы на сервер и выводит сообщение об успешной отправке, если все поля заполненны корректно.
+ * В противном случае выводит сообщение об ошибке.
+ */
+const setNewAdFormSubmit = (sendData, onSuccess, onError) => {
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    sendData(
+      () => onSuccess(),
+      () => onError(),
+      new FormData(evt.target),
+    );
+  });
+};
+
+/**
+ * Восстанавливает стандартные значения всем элементам формы
+ */
+const resetAdForm = () => {
+  adForm.reset();
+};
+
+// С этим обработчиком есть проблема! Карта перестает загружаться.
+//
+// adForm.addEventListener('reset', () => {
+//   resetMap();
+// });
+
+
+export {resetAdForm, setNewAdFormSubmit, getActiveForm, getInactiveForm, addressInput};
