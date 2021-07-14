@@ -10,6 +10,8 @@ const typeSelect = adForm.querySelector('#type');
 const roomNumberSelect = adForm.querySelector('#room_number');
 const capacitySelect = adForm.querySelector('#capacity');
 const capacityOptions = capacitySelect.querySelectorAll('option');
+const timeinSelect = adForm.querySelector('#timein');
+const timeoutSelect = adForm.querySelector('#timeout');
 
 const TitleLength = {
   MIN: 30,
@@ -53,6 +55,8 @@ const getInactiveForm = () => {
   mapFiltersSelects.forEach((item) => item.disabled = true);
 };
 
+getInactiveForm();
+
 addressInput.readOnly = true;
 
 titleInput.addEventListener('input', () => {
@@ -88,7 +92,44 @@ priceInput.addEventListener('input', () => {
 
 roomNumberSelect.addEventListener('change', () => {
   const roomsValue = roomNumberSelect.value;
-  capacityOptions.forEach( (item) => item.disabled = !roomsToCapacity[roomsValue].includes(item.value));
+  capacityOptions.forEach((option) => option.disabled = !roomsToCapacity[roomsValue].includes(option.value));
 });
 
-export {getActiveForm, getInactiveForm, addressInput};
+timeinSelect.addEventListener('change', () => {
+  timeoutSelect.value = timeinSelect.value;
+});
+
+timeoutSelect.addEventListener('change', () => {
+  timeinSelect.value = timeoutSelect.value;
+});
+
+/**
+ * Отправляет данные из формы на сервер и выводит сообщение об успешной отправке, если все поля заполненны корректно.
+ * В противном случае выводит сообщение об ошибке.
+ */
+const setNewAdFormSubmit = (sendData, onSuccess, onError) => {
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    sendData(
+      () => onSuccess(),
+      () => onError(),
+      new FormData(evt.target),
+    );
+  });
+};
+
+/**
+ * Восстанавливает стандартные значения всем элементам формы
+ */
+const resetAdForm = () => {
+  adForm.reset();
+};
+
+// С этим обработчиком есть проблема! Карта перестает загружаться.
+//
+// adForm.addEventListener('reset', () => {
+//   resetMap();
+// });
+
+
+export {resetAdForm, setNewAdFormSubmit, getActiveForm, getInactiveForm, addressInput};

@@ -1,6 +1,12 @@
-import {createSimilarAds} from './data.js';
+import {getData, sendData} from './api.js';
+import {setNewAdFormSubmit} from './form.js';
+import {showSuccessMessage, showErrorMessage} from './messages.js';
 import {createMarkers} from './map.js';
 
 const SIMILAR_AD_COUNT = 10;
-const ads = createSimilarAds(SIMILAR_AD_COUNT);
-createMarkers(ads);
+
+getData((ads) => {
+  createMarkers(ads.slice(0, SIMILAR_AD_COUNT));
+});
+
+setNewAdFormSubmit(sendData, showSuccessMessage, showErrorMessage);
