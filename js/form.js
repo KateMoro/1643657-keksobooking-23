@@ -125,11 +125,4 @@ const resetAdForm = () => {
   adForm.reset();
 };
 
-// С этим обработчиком есть проблема! Карта перестает загружаться.
-//
-// adForm.addEventListener('reset', () => {
-//   resetMap();
-// });
-
-
 export {resetAdForm, setNewAdFormSubmit, getActiveForm, getInactiveForm, addressInput};

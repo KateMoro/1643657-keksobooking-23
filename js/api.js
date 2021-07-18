@@ -1,6 +1,4 @@
 import {showAlert} from './util.js';
-import {resetAdForm} from './form.js';
-import {resetMap} from './map.js';
 
 const Url = {
   SERVER: 'https://23.javascript.pages.academy/keksobooking',
@@ -34,8 +32,6 @@ const sendData = (onSuccess, onFail, body) => {
     .then((response) => {
       if (response.ok) {
         onSuccess();
-        resetAdForm();
-        resetMap();
       } else {
         onFail('Не удалось отправить форму. Попробуйте ещё раз');
       }
