@@ -6,13 +6,15 @@ const DefaultСoordinates = {
   LNG: 139.75389,
 };
 
+const MAP_ZOOM = 13;
+
 const map = L.map('map-canvas')
   .on('load', () => getActiveForm())
   .setView(
     {
       lat: DefaultСoordinates.LAT,
       lng: DefaultСoordinates.LNG,
-    }, 13);
+    }, MAP_ZOOM);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -97,7 +99,7 @@ const resetMap = () => {
     {
       lat: DefaultСoordinates.LAT,
       lng: DefaultСoordinates.LNG,
-    }, 13);
+    }, MAP_ZOOM);
   mainMarker.setLatLng(
     {
       lat: DefaultСoordinates.LAT,
