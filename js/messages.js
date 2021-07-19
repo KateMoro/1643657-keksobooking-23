@@ -1,6 +1,7 @@
 import {setAddressCoordinates, resetMap} from './map.js';
 import {resetMapFilters} from './filter.js';
 import {resetAdForm} from './form.js';
+import {resetImages} from './avatar.js';
 
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
@@ -48,6 +49,7 @@ const showSuccessMessage = () => {
   resetMapFilters();
   resetAdForm();
   setAddressCoordinates();
+  resetImages();
 };
 
 /**

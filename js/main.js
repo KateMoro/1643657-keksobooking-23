@@ -3,6 +3,7 @@ import {setNewAdFormSubmit, resetAdForm} from './form.js';
 import {showSuccessMessage, showErrorMessage} from './messages.js';
 import {setAddressCoordinates, createMarkers, resetMap} from './map.js';
 import {filterTypeField, filterRoomsField, filterGuestsField, filterPriceField, filterFeatures, mapFiltersChangeHandler, resetMapFilters} from './filter.js';
+import {resetImages} from './avatar.js';
 
 const resetButton = document.querySelector('.ad-form__reset');
 
@@ -27,4 +28,5 @@ resetButton.addEventListener('click', (evt) => {
   resetMapFilters();
   resetAdForm();
   setAddressCoordinates();
+  resetImages();
 });
