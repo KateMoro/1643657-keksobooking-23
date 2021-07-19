@@ -111,7 +111,6 @@ const resetMap = () => {
       lng: DefaultСoordinates.LNG,
     },
   );
-  setAddressCoordinates();
 };
 
 /**

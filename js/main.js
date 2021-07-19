@@ -5,9 +5,9 @@ import {setAddressCoordinates, createMarkers, resetMap} from './map.js';
 import {filterTypeField, filterRoomsField, filterGuestsField, filterPriceField, filterFeatures, mapFiltersChangeHandler, resetMapFilters} from './filter.js';
 import {resetImages} from './avatar.js';
 
-const resetButton = document.querySelector('.ad-form__reset');
-
 const SIMILAR_AD_COUNT = 10;
+
+const resetButton = document.querySelector('.ad-form__reset');
 
 getData((ads) => {
   createMarkers(ads.slice(0, SIMILAR_AD_COUNT));
