@@ -1,3 +1,7 @@
+import {setAddressCoordinates, resetMap} from './map.js';
+import {resetMapFilters} from './filter.js';
+import {resetAdForm} from './form.js';
+
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
 const errorButton = errorMessageTemplate.querySelector('.error__button');
@@ -40,6 +44,10 @@ const showMessage = (value) => {
  */
 const showSuccessMessage = () => {
   showMessage(successMessageTemplate);
+  resetMap();
+  resetMapFilters();
+  resetAdForm();
+  setAddressCoordinates();
 };
 
 /**

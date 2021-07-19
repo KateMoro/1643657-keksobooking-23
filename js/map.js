@@ -6,13 +6,15 @@ const DefaultСoordinates = {
   LNG: 139.75389,
 };
 
+const MAP_ZOOM = 13;
+
 const map = L.map('map-canvas')
   .on('load', () => getActiveForm())
   .setView(
     {
       lat: DefaultСoordinates.LAT,
       lng: DefaultСoordinates.LNG,
-    }, 13);
+    }, MAP_ZOOM);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -56,6 +58,11 @@ const setAddressCoordinates = () => {
 setAddressCoordinates();
 
 /**
+ * Создает отдельный слой на карте, куда будут добавляться метки
+ */
+const markerGroup = L.layerGroup().addTo(map);
+
+/**
  * Создает на карте метку с объявлением
  */
 const createMarkers = (arr) => {
@@ -79,7 +86,7 @@ const createMarkers = (arr) => {
     );
 
     marker
-      .addTo(map)
+      .addTo(markerGroup)
       .bindPopup(
         renderCard(element),
         {
@@ -97,7 +104,7 @@ const resetMap = () => {
     {
       lat: DefaultСoordinates.LAT,
       lng: DefaultСoordinates.LNG,
-    }, 13);
+    }, MAP_ZOOM);
   mainMarker.setLatLng(
     {
       lat: DefaultСoordinates.LAT,
@@ -107,4 +114,9 @@ const resetMap = () => {
   setAddressCoordinates();
 };
 
-export {resetMap, createMarkers, setAddressCoordinates};
+/**
+ * Удаляет слой с метками на карте
+ */
+const removeLayer = () => markerGroup.clearLayers();
+
+export {removeLayer, resetMap, createMarkers, setAddressCoordinates};
