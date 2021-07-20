@@ -1,6 +1,7 @@
-import {setAddressCoordinates, resetMap} from './map.js';
+import {setAddressCoordinates, resetMap, removeLayer} from './map.js';
 import {resetMapFilters} from './filter.js';
 import {resetAdForm} from './form.js';
+import {resetImages} from './avatar.js';
 
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
@@ -23,8 +24,8 @@ const onPopupCloseClick = () => closePopup();
 function closePopup () {
   const popup = document.querySelector('.popup');
   popup.remove();
-  document.removeEventListener( 'click', onPopupCloseClick);
-  document.removeEventListener( 'keydown', onPopupEscKeydown);
+  document.removeEventListener('click', onPopupCloseClick);
+  document.removeEventListener('keydown', onPopupEscKeydown);
 }
 
 /**
@@ -35,8 +36,8 @@ const showMessage = (value) => {
   popupMessage.classList.add('popup');
   document.body.insertAdjacentElement('beforeend', popupMessage);
 
-  document.addEventListener( 'click', onPopupCloseClick );
-  document.addEventListener( 'keydown', onPopupEscKeydown );
+  document.addEventListener('click', onPopupCloseClick);
+  document.addEventListener('keydown', onPopupEscKeydown);
 };
 
 /**
@@ -48,6 +49,8 @@ const showSuccessMessage = () => {
   resetMapFilters();
   resetAdForm();
   setAddressCoordinates();
+  resetImages();
+  removeLayer();
 };
 
 /**
@@ -55,7 +58,7 @@ const showSuccessMessage = () => {
  */
 const showErrorMessage = () => {
   showMessage(errorMessageTemplate);
-  errorButton.addEventListener('click', onPopupCloseClick );
+  errorButton.addEventListener('click', onPopupCloseClick);
 };
 
 export {showSuccessMessage, showErrorMessage};

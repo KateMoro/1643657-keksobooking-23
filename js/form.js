@@ -36,12 +36,18 @@ const roomsToCapacity = {
 };
 
 /**
- * Переводит страницу в активное состояние
+ * Переводит форму в активное состояние
  */
 const getActiveForm = () => {
   adForm.classList.remove('ad-form--disabled');
-  mapFiltersForm.classList.remove('map__filters--disabled');
   fieldsets.forEach((item) => item.disabled = false);
+};
+
+/**
+ * Переводит фильтры в активное состояние
+ */
+const getActiveFilters = () => {
+  mapFiltersForm.classList.remove('map__filters--disabled');
   mapFiltersSelects.forEach((item) => item.disabled = false);
 };
 
@@ -107,11 +113,14 @@ timeoutSelect.addEventListener('change', () => {
  * Отправляет данные из формы на сервер и выводит сообщение об успешной отправке, если все поля заполненны корректно.
  * В противном случае выводит сообщение об ошибке.
  */
-const setNewAdFormSubmit = (sendData, onSuccess, onError) => {
+const userFormSubmitHandler = (sendData, onSuccess, onError, cb) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     sendData(
-      () => onSuccess(),
+      () => {
+        onSuccess();
+        cb();
+      },
       () => onError(),
       new FormData(evt.target),
     );
@@ -125,4 +134,4 @@ const resetAdForm = () => {
   adForm.reset();
 };
 
-export {resetAdForm, setNewAdFormSubmit, getActiveForm, getInactiveForm, addressInput};
+export {resetAdForm, userFormSubmitHandler, getActiveForm, getActiveFilters, addressInput};
