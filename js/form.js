@@ -36,12 +36,18 @@ const roomsToCapacity = {
 };
 
 /**
- * Переводит страницу в активное состояние
+ * Переводит форму в активное состояние
  */
 const getActiveForm = () => {
   adForm.classList.remove('ad-form--disabled');
-  mapFiltersForm.classList.remove('map__filters--disabled');
   fieldsets.forEach((item) => item.disabled = false);
+};
+
+/**
+ * Переводит фильтры в активное состояние
+ */
+const getActiveFilters = () => {
+  mapFiltersForm.classList.remove('map__filters--disabled');
   mapFiltersSelects.forEach((item) => item.disabled = false);
 };
 
@@ -125,4 +131,4 @@ const resetAdForm = () => {
   adForm.reset();
 };
 
-export {resetAdForm, setNewAdFormSubmit, getActiveForm, getInactiveForm, addressInput};
+export {resetAdForm, setNewAdFormSubmit, getActiveForm, getActiveFilters, addressInput};

@@ -1,5 +1,5 @@
 import {getData, sendData} from './api.js';
-import {setNewAdFormSubmit, resetAdForm} from './form.js';
+import {setNewAdFormSubmit, resetAdForm, getActiveFilters} from './form.js';
 import {showSuccessMessage, showErrorMessage} from './messages.js';
 import {setAddressCoordinates, createMarkers, resetMap} from './map.js';
 import {filterTypeField, filterRoomsField, filterGuestsField, filterPriceField, filterFeatures, mapFiltersChangeHandler, resetMapFilters} from './filter.js';
@@ -11,6 +11,7 @@ const resetButton = document.querySelector('.ad-form__reset');
 
 getData((ads) => {
   createMarkers(ads.slice(0, SIMILAR_AD_COUNT));
+  getActiveFilters();
 
   mapFiltersChangeHandler(() => {
     createMarkers(ads
