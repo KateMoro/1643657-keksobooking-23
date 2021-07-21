@@ -21,7 +21,7 @@ const getFeatures = (arr) => arr.map( (feature) => `<li class="popup__feature po
  * @param {number} room
  * @returns {string}
  */
-const roomsText = (room) => {
+const setRoomsText = (room) => {
   if (room === 1 || (room % 10 === 1 && room !== 11)) {
     return 'комната';
   }
@@ -37,7 +37,7 @@ const roomsText = (room) => {
  * @param {number} guest
  * @returns {string}
  */
-const guestsText = (guest) => {
+const setGuestsText = (guest) => {
   if (guest === 1 || (guest % 10 === 1 && guest !== 11)) {
     return 'гостя';
   }
@@ -97,7 +97,7 @@ const renderCard = (obj) => {
   }
 
   if (obj.offer.rooms || obj.offer.guests) {
-    cardItem.querySelector('.popup__text--capacity').textContent = `${obj.offer.rooms} ${roomsText(obj.offer.rooms)} для ${obj.offer.guests} ${guestsText(obj.offer.guests)}`;
+    cardItem.querySelector('.popup__text--capacity').textContent = `${obj.offer.rooms} ${setRoomsText(obj.offer.rooms)} для ${obj.offer.guests} ${setGuestsText(obj.offer.guests)}`;
   } else {
     cardItem.querySelector('.popup__text--capacity').remove();
   }
