@@ -1,13 +1,6 @@
 import {removeLayer} from './map.js';
 import {debounce} from './utils/debounce.js';
 
-const mapFiltersForm = document.querySelector('.map__filters');
-
-const housingTypeSelect = mapFiltersForm.querySelector('#housing-type');
-const housingPriceSelect = mapFiltersForm.querySelector('#housing-price');
-const housingRoomsSelect = mapFiltersForm.querySelector('#housing-rooms');
-const housingGuestsSelect = mapFiltersForm.querySelector('#housing-guests');
-
 const ANY = 'any';
 
 const priceMap = {
@@ -15,6 +8,12 @@ const priceMap = {
   middle: {start: 10000, end: 50000},
   high: {start: 50000, end: 1000000},
 };
+
+const mapFiltersForm = document.querySelector('.map__filters');
+const housingTypeSelect = mapFiltersForm.querySelector('#housing-type');
+const housingPriceSelect = mapFiltersForm.querySelector('#housing-price');
+const housingRoomsSelect = mapFiltersForm.querySelector('#housing-rooms');
+const housingGuestsSelect = mapFiltersForm.querySelector('#housing-guests');
 
 const filterTypeField = (ad) => housingTypeSelect.value === ANY || ad.offer.type === housingTypeSelect.value;
 const filterRoomsField = (ad) => housingRoomsSelect.value === ANY || ad.offer.rooms === Number(housingRoomsSelect.value);

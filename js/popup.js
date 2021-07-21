@@ -1,6 +1,3 @@
-const similarAdTemplate = document.querySelector('#card').content.querySelector('.popup');
-const imgItem = similarAdTemplate.querySelector('.popup__photo');
-
 const typeOfHousing = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
@@ -8,6 +5,9 @@ const typeOfHousing = {
   palace: 'Дворец',
   hotel: 'Отель',
 };
+
+const similarAdTemplate = document.querySelector('#card').content.querySelector('.popup');
+const imgItem = similarAdTemplate.querySelector('.popup__photo');
 
 /**
  * Заменяет элементы в списке характерстик

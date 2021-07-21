@@ -1,12 +1,12 @@
 import {getActiveForm, addressInput} from './form.js';
 import {renderCard} from './popup.js';
 
+const MAP_ZOOM = 13;
+
 const DefaultСoordinates = {
   LAT: 35.68171,
   LNG: 139.75389,
 };
-
-const MAP_ZOOM = 13;
 
 const map = L.map('map-canvas')
   .on('load', () => getActiveForm())

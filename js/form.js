@@ -1,24 +1,9 @@
-const adForm = document.querySelector('.ad-form');
-const fieldsets = document.querySelectorAll('fieldset');
-const mapFiltersForm = document.querySelector('.map__filters');
-const mapFiltersSelects = mapFiltersForm.querySelectorAll('select');
-
-const titleInput = adForm.querySelector('#title');
-const addressInput = adForm.querySelector('#address');
-const priceInput = adForm.querySelector('#price');
-const typeSelect = adForm.querySelector('#type');
-const roomNumberSelect = adForm.querySelector('#room_number');
-const capacitySelect = adForm.querySelector('#capacity');
-const capacityOptions = capacitySelect.querySelectorAll('option');
-const timeinSelect = adForm.querySelector('#timein');
-const timeoutSelect = adForm.querySelector('#timeout');
+const MAX_PRICE = 1000000;
 
 const TitleLength = {
   MIN: 30,
   MAX: 100,
 };
-
-const MAX_PRICE = 1000000;
 
 const housingMinPrice = {
   bungalow: 0,
@@ -34,6 +19,20 @@ const roomsToCapacity = {
   '3': ['1', '2', '3'],
   '100': ['0'],
 };
+
+const adForm = document.querySelector('.ad-form');
+const fieldsets = document.querySelectorAll('fieldset');
+const mapFiltersForm = document.querySelector('.map__filters');
+const mapFiltersSelects = mapFiltersForm.querySelectorAll('select');
+const titleInput = adForm.querySelector('#title');
+const addressInput = adForm.querySelector('#address');
+const priceInput = adForm.querySelector('#price');
+const typeSelect = adForm.querySelector('#type');
+const roomNumberSelect = adForm.querySelector('#room_number');
+const capacitySelect = adForm.querySelector('#capacity');
+const capacityOptions = capacitySelect.querySelectorAll('option');
+const timeinSelect = adForm.querySelector('#timein');
+const timeoutSelect = adForm.querySelector('#timeout');
 
 /**
  * Переводит форму в активное состояние
