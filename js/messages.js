@@ -9,14 +9,14 @@ const errorButton = errorMessageTemplate.querySelector('.error__button');
 
 const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
-const onPopupEscKeydown = (evt) => {
+const popupEscKeydownHandler = (evt) => {
   if (isEscEvent(evt)) {
     evt.preventDefault();
     closePopup();
   }
 };
 
-const onPopupCloseClick = () => closePopup();
+const popupCloseClickHandler = () => closePopup();
 
 /**
  * Удаляет сообщение со страницы и обработчики событий
@@ -24,8 +24,8 @@ const onPopupCloseClick = () => closePopup();
 function closePopup () {
   const popup = document.querySelector('.popup');
   popup.remove();
-  document.removeEventListener('click', onPopupCloseClick);
-  document.removeEventListener('keydown', onPopupEscKeydown);
+  document.removeEventListener('click', popupCloseClickHandler);
+  document.removeEventListener('keydown', popupEscKeydownHandler);
 }
 
 /**
@@ -36,8 +36,8 @@ const showMessage = (value) => {
   popupMessage.classList.add('popup');
   document.body.insertAdjacentElement('beforeend', popupMessage);
 
-  document.addEventListener('click', onPopupCloseClick);
-  document.addEventListener('keydown', onPopupEscKeydown);
+  document.addEventListener('click', popupCloseClickHandler);
+  document.addEventListener('keydown', popupEscKeydownHandler);
 };
 
 /**
@@ -58,7 +58,7 @@ const showSuccessMessage = () => {
  */
 const showErrorMessage = () => {
   showMessage(errorMessageTemplate);
-  errorButton.addEventListener('click', onPopupCloseClick);
+  errorButton.addEventListener('click', popupCloseClickHandler);
 };
 
 export {showSuccessMessage, showErrorMessage};
