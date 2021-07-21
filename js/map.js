@@ -8,6 +8,18 @@ const DefaultСoordinates = {
   LNG: 139.75389,
 };
 
+const MainPin = {
+  URL: 'img/main-pin.svg',
+  SIZE: [52, 52],
+  ANCHOR: [26, 52],
+};
+
+const RegularPin = {
+  URL: 'img/pin.svg',
+  SIZE: [40, 40],
+  ANCHOR: [20, 40],
+};
+
 const map = L.map('map-canvas')
   .on('load', () => getActiveForm())
   .setView(
@@ -24,9 +36,9 @@ L.tileLayer(
 ).addTo(map);
 
 const mainPinIcon = L.icon({
-  iconUrl: 'img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
+  iconUrl: MainPin.URL,
+  iconSize: MainPin.SIZE,
+  iconAnchor: MainPin.ANCHOR,
 });
 
 const mainMarker = L.marker(
@@ -70,9 +82,9 @@ const createMarkers = (arr) => {
     const {lat, lng} = element.location;
 
     const icon = L.icon({
-      iconUrl: 'img/pin.svg',
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
+      iconUrl: RegularPin.URL,
+      iconSize: RegularPin.SIZE,
+      iconAnchor: RegularPin.ANCHOR,
     });
 
     const marker = L.marker(
