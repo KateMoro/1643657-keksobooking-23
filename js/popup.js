@@ -27,9 +27,8 @@ const setRoomsText = (room) => {
   }
   if ((room > 1 && room < 5) || (room % 10 === 2 && room !== 12) || (room % 10 === 3 && room !== 13) || (room % 10 === 4 && room !== 14)) {
     return 'комнаты';
-  } else {
-    return 'комнат';
   }
+  return 'комнат';
 };
 
 /**
