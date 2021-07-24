@@ -20,20 +20,7 @@ const RegularPin = {
   ANCHOR: [20, 40],
 };
 
-const map = L.map('map-canvas')
-  .on('load', () => getActiveForm())
-  .setView(
-    {
-      lat: DefaultСoordinates.LAT,
-      lng: DefaultСoordinates.LNG,
-    }, MAP_ZOOM);
-
-L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  },
-).addTo(map);
+const map = L.map('map-canvas');
 
 const mainPinIcon = L.icon({
   iconUrl: MainPin.URL,
@@ -67,7 +54,29 @@ const setAddressCoordinates = () => {
   });
 };
 
-setAddressCoordinates();
+/**
+ * Иницилизация карты
+ */
+const initMap = (getData) => {
+  map
+    .on('load', () => {
+      getActiveForm();
+      getData();
+    })
+    .setView(
+      {
+        lat: DefaultСoordinates.LAT,
+        lng: DefaultСoordinates.LNG,
+      }, MAP_ZOOM);
+
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    },
+  ).addTo(map);
+  setAddressCoordinates();
+};
 
 /**
  * Создает отдельный слой на карте, куда будут добавляться метки
@@ -75,9 +84,15 @@ setAddressCoordinates();
 const markerGroup = L.layerGroup().addTo(map);
 
 /**
+ * Удаляет слой с метками на карте
+ */
+const removeLayer = () => markerGroup.clearLayers();
+
+/**
  * Создает на карте метку с объявлением
  */
 const createMarkers = (arr) => {
+  removeLayer();
   arr.forEach((element) => {
     const {lat, lng} = element.location;
 
@@ -125,9 +140,4 @@ const resetMap = () => {
   );
 };
 
-/**
- * Удаляет слой с метками на карте
- */
-const removeLayer = () => markerGroup.clearLayers();
-
-export {removeLayer, resetMap, createMarkers, setAddressCoordinates};
+export {resetMap, createMarkers, setAddressCoordinates, initMap};

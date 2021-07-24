@@ -60,8 +60,6 @@ const getInactiveForm = () => {
   mapFiltersSelects.forEach((item) => item.disabled = true);
 };
 
-getInactiveForm();
-
 addressInput.readOnly = true;
 
 titleInput.addEventListener('input', () => {
@@ -97,7 +95,14 @@ priceInput.addEventListener('input', () => {
 
 roomNumberSelect.addEventListener('change', () => {
   const roomsValue = roomNumberSelect.value;
-  capacityOptions.forEach((option) => option.disabled = !roomsToCapacity[roomsValue].includes(option.value));
+  capacityOptions.forEach((option) => {
+    if (roomsToCapacity[roomsValue].includes(option.value)) {
+      option.disabled = false;
+      option.selected = true;
+    } else {
+      option.disabled = true;
+    }
+  });
 });
 
 timeinSelect.addEventListener('change', () => {
@@ -133,4 +138,4 @@ const resetAdForm = () => {
   adForm.reset();
 };
 
-export {resetAdForm, userFormSubmitHandler, getActiveForm, getActiveFilters, addressInput};
+export {resetAdForm, userFormSubmitHandler, getActiveForm, getActiveFilters, addressInput, getInactiveForm};

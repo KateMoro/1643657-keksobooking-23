@@ -1,4 +1,4 @@
-import {setAddressCoordinates, resetMap, removeLayer} from './map.js';
+import {setAddressCoordinates, resetMap} from './map.js';
 import {resetMapFilters} from './filter.js';
 import {resetAdForm} from './form.js';
 import {resetImages} from './avatar.js';
@@ -22,9 +22,8 @@ const popupCloseClickHandler = () => closePopup();
  * Удаляет сообщение со страницы и обработчики событий
  */
 function closePopup () {
-  const popup = document.querySelector('.popup');
+  const popup = document.querySelector('.popup-message');
   popup.remove();
-  document.removeEventListener('click', popupCloseClickHandler);
   document.removeEventListener('keydown', popupEscKeydownHandler);
 }
 
@@ -33,10 +32,10 @@ function closePopup () {
  */
 const showMessage = (value) => {
   const popupMessage = value.cloneNode(true);
-  popupMessage.classList.add('popup');
+  popupMessage.classList.add('popup-message');
   document.body.insertAdjacentElement('beforeend', popupMessage);
 
-  document.addEventListener('click', popupCloseClickHandler);
+  popupMessage.addEventListener('click', popupCloseClickHandler);
   document.addEventListener('keydown', popupEscKeydownHandler);
 };
 
@@ -50,7 +49,6 @@ const showSuccessMessage = () => {
   resetAdForm();
   setAddressCoordinates();
   resetImages();
-  removeLayer();
 };
 
 /**

@@ -1,4 +1,3 @@
-import {removeLayer} from './map.js';
 import {debounce} from './utils/debounce.js';
 
 const ANY = 'any';
@@ -30,7 +29,6 @@ const filterFeatures = (ad) => {
 
 const mapFiltersChangeHandler = (cb) => {
   mapFiltersForm.addEventListener('change', debounce(() => {
-    removeLayer();
     cb();
   }));
 };
